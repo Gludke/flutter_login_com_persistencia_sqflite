@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_com_bd/screens/dashboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,31 +12,84 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Dashboard'),
+      //Define tudo sobre o tema geral do App.
+      theme: ThemeData(
+        primaryColor: Colors.green.shade900,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.green.shade900,
+          secondary: Colors.blueAccent.shade700,
         ),
-        body: Column(
-          //Espaço máximo entre os widgets dentro da Column:
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //LOGO DA EMPRESA:
-          children: <Widget>[
-            Image.asset('images/bytebank_logo.png'),
-            //container serve quando queremos colocar os widgets dentro de um "caixa" e também para agrupá-los. Container sempre se ajusta conforme os widgets dentro dele.
-            Container(
-              height: 100,
-              width: 150,
-              color: Colors.green,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.people),
-                  const Text('Contacts'),
-                ],
+        //Cor para botões:
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(Colors.blueAccent.shade700),
+          ),
+        ),
+      ),
+      home: const FormNewContact(),
+    );
+  }
+}
+
+//######################################################
+class FormNewContact extends StatefulWidget {
+  const FormNewContact({Key? key}) : super(key: key);
+
+  @override
+  _FormNewContactState createState() => _FormNewContactState();
+}
+
+class _FormNewContactState extends State<FormNewContact> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('New Contact')),
+      body: Form(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              //CAMPO INPUT NOME:
+              TextField(
+                style: const TextStyle(
+                  fontSize: 24.0,
+                ),
+                decoration: InputDecoration(
+                  labelText: 'Full name',
+                ),
+                keyboardType: TextInputType.name,
               ),
-            ),
-          ],
+              //CAMPO INPUT NUMERO CONTA:
+              TextField(
+                style: const TextStyle(
+                  fontSize: 24.0,
+                ),
+                decoration: InputDecoration(
+                  labelText: 'Account number',
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              //BOTÃO SUBMIT:
+              SizedBox(
+                height: 56.0,
+                //Máximo de largura para o ElevatedButton:
+                width: double.maxFinite,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Add',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
